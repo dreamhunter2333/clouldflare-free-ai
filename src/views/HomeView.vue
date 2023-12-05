@@ -1,7 +1,7 @@
 <script setup>
-import { NFormItem, NInputGroup, NScrollbar, NAvatar } from 'naive-ui';
+import { NFormItem, NInputGroup, NAvatar } from 'naive-ui';
 import { NInput, NCard, NButton, useMessage, NIcon } from 'naive-ui';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { SmartToyOutlined, ManOutlined } from '@vicons/material';
 
 import { api } from '../api';
@@ -11,6 +11,10 @@ const message = useMessage();
 const systemPrompt = ref('');
 const userPrompt = ref('');
 const messageHistory = ref([]);
+
+const reverseMessageHistory = computed(() => {
+  return messageHistory.value.slice().reverse();
+});
 
 const send = async () => {
   if (!userPrompt.value) {
@@ -38,6 +42,8 @@ const send = async () => {
     });
   } catch (e) {
     message.error(e.message);
+  } finally {
+    userPrompt.value = '';
   }
 };
 
@@ -45,13 +51,13 @@ const send = async () => {
 
 <template>
   <main>
-    <h2>AI 聊天</h2>
+    <h3>AI 聊天</h3>
     <n-form-item label="系统提示词" label-placement="left">
       <n-input class="left" v-model:value="systemPrompt" />
     </n-form-item>
     <n-card>
-      <n-scrollbar style="height: 50vh;" trigger="none">
-        <div v-for="msg in messageHistory" v-bind:key="msg" :class="msg.role == 'user' ? 'right' : 'left'">
+      <div class="chat-box">
+        <div v-for="msg in reverseMessageHistory" v-bind:key="msg" :class="msg.role == 'user' ? 'right' : 'left'">
           <div v-if="msg.role != 'user'" class="chat-item">
             <n-avatar>
               <n-icon :component="SmartToyOutlined" />
@@ -66,10 +72,10 @@ const send = async () => {
             </n-avatar>
           </div>
         </div>
-      </n-scrollbar>
+      </div>
     </n-card>
     <n-input-group>
-      <n-input class="left" v-model:value="userPrompt" />
+      <n-input class="left" clearable @keyup="e => e.keyCode === 13 && send()" v-model:value="userPrompt" />
       <n-button @click="send" type="primary">发送</n-button>
     </n-input-group>
   </main>
@@ -84,9 +90,11 @@ const send = async () => {
   text-align: left;
 }
 
-.n-scrollbar {
+.chat-box {
   display: flex;
   flex-direction: column-reverse;
+  height: 60vh;
+  overflow: auto;
 }
 
 .right {
