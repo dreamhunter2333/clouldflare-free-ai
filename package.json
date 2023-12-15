@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.7.0",
-    "hono": "^3.11.3",
+    "hono": "^3.11.7",
     "markdown-it": "^13.0.2",
     "naive-ui": "^2.35.0",
     "vooks": "^0.2.12",
