@@ -9,8 +9,8 @@ dependencies:
     specifier: ^10.7.0
     version: 10.7.0(vue@3.3.11)
   hono:
-    specifier: ^3.11.3
-    version: 3.11.3
+    specifier: ^3.11.7
+    version: 3.11.7
   markdown-it:
     specifier: ^13.0.2
     version: 13.0.2
@@ -2752,8 +2752,8 @@ packages:
     engines: {node: '>=12.0.0'}
     dev: false
 
-  /hono@3.11.3:
-    resolution: {integrity: sha512-MWYBcIS4dZJo9e/852Zwl+gqBiUSRknMOZ/MbW7kW8JiWixTJ58pzXVIeBq7jnvFq3AZ9uQ35QyVpzV05sdNFw==}
+  /hono@3.11.7:
+    resolution: {integrity: sha512-TcfAq7IdipF+9coxnuzYlSSBXbm9mTyWjjagLCv/2ampboNcKJdi+XCK5G48mHQtpI5+9Rj3J4FfcGgw9vzIww==}
     engines: {node: '>=16.0.0'}
     dev: false
 
